@@ -1,0 +1,21 @@
+version: '2.4'
+services:
+  db:
+    image: postgres:9.6.5
+    env_file:
+      - ./db.env
+    ports:
+      - "5432:5432"
+  backend:
+    build: ./
+    volumes:
+      - .:/code
+    ports:
+      - "8090:8090"
+      - "9231:9229"
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+    networks:
+      - default
