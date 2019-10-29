@@ -26,6 +26,9 @@ const setup = (sequelize) => {
     race: {
       type: Sequelize.STRING,
     },
+    class: {
+      type: Sequelize.STRING,
+    },
     gender: {
       type: Sequelize.INTEGER,
     },

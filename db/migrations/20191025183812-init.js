@@ -22,6 +22,9 @@ module.exports = {
       race: {
         type: Sequelize.STRING,
       },
+      class: {
+        type: Sequelize.STRING,
+      },
       gender: {
         type: Sequelize.INTEGER,
       },
