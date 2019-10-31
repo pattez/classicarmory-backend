@@ -2,6 +2,9 @@
 async function up(queryInterface) {
   const data = [
     {
+      name: 'Neutrum / Unknown'
+    },
+    {
       name: 'female'
     },
     {

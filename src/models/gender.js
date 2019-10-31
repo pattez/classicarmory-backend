@@ -1,20 +1,23 @@
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 const Model = Sequelize.Model;
 
 class gender extends Model {}
 
-const setup = (sequelize) => {
-  gender.init({
-    id: {
-      type: Sequelize.SMALLINT,
-      primaryKey: true,
-      autoIncrement: true
+const setup = sequelize => {
+  gender.init(
+    {
+      id: {
+        type: Sequelize.SMALLINT,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      }
     },
-    name: {
-      type: Sequelize.STRING,
-      allowNull: false
-    }
-  }, { sequelize });
-}
+    { sequelize }
+  );
+};
 
-module.exports = {setup};
+module.exports = { setup };

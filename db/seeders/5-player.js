@@ -3,10 +3,10 @@ async function up(queryInterface) {
   const data = [
     {
       name: 'pattez',
-      serverId: 1,
-      genderId: 1,
-      raceId: 1,
-      classId: 1,
+      serverId: 9,
+      genderId: 3,
+      raceId: 7,
+      classId: 8,
       guild: 'APES',
       guildRank: 'member',
       level: 60,

@@ -16,7 +16,6 @@ router.post("/players", async (req, res) => {
   });
   res.send(players);
 });
-
 router.get("/players/:id", async (req, res) => {
   const player = await models.player.findByPk(req.params.id);
   const playerGear = await models.playerGear.findOne({where: {playerId: player.id}, attributes: [

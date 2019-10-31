@@ -19,7 +19,8 @@ const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
     idle: 10000
   },
   define: {
-    paranoid: true
+    paranoid: true,
+    timestamps: false
   }
 });
 sequelize.authenticate().then(() => {

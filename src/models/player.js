@@ -62,7 +62,8 @@ const setup = (sequelize) => {
     },
     createdAt: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
+      defaultValue: new Date()
     }
   }, { sequelize });
 }

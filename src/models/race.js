@@ -13,6 +13,9 @@ const setup = (sequelize) => {
     name: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    faction: {
+      type: Sequelize.STRING
     }
   }, { sequelize });
 }

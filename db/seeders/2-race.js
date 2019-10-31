@@ -1,9 +1,14 @@
 
 async function up(queryInterface) {
   const data = [
-    {
-      name: 'gnome'
-    }
+    {name: 'Human', faction: 'Alliance'},
+    {name: 'Orc', faction: 'Horde'},
+    {name: 'Dwarf', faction: 'Alliance'},
+    {name: 'Night Elf', faction: 'Alliance'},
+    {name: 'Undead', faction: 'Horde'},
+    {name: 'Tauren', faction: 'Horde'},
+    {name: 'Gnome', faction: 'Alliance'},
+    {name: 'Troll', faction: 'Horde'},
   ];
   await queryInterface.bulkInsert('races', data, {});
 }

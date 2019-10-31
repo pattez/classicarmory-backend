@@ -11,6 +11,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      type: {
+        type: Sequelize.STRING,
       }
     });
     await queryInterface.createTable('races', {
@@ -22,6 +25,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      faction: {
+        type: Sequelize.STRING
       }
     });
     await queryInterface.createTable('genders', {
