@@ -18,7 +18,7 @@ const setup = (sequelize) => {
         key: 'id'
       }
     },
-    slot: {
+    slotId: {
       type: Sequelize.SMALLINT,
     },
     itemId: {

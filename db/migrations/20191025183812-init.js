@@ -64,28 +64,28 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      race: {
+      raceId: {
         type: Sequelize.SMALLINT,
         references: {
           model: 'races',
           key: 'id'
         }
       },
-      class: {
+      classId: {
         type: Sequelize.SMALLINT,
         references: {
           model: 'classes',
           key: 'id'
         }
       },
-      gender: {
+      genderId: {
         type: Sequelize.SMALLINT,
         references: {
           model: 'genders',
           key: 'id'
         }
       },
-      server: {
+      serverId: {
         type: Sequelize.SMALLINT,
         allowNull: false,
         references: {
@@ -121,7 +121,7 @@ module.exports = {
           key: 'id'
         }
       },
-      slot: {
+      slotId: {
         type: Sequelize.SMALLINT,
       },
       itemId: {

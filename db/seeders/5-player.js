@@ -3,14 +3,16 @@ async function up(queryInterface) {
   const data = [
     {
       name: 'pattez',
-      server: 'gehennas',
-      gender: 2,
-      race: 'Gnome',
+      serverId: 1,
+      genderId: 1,
+      raceId: 1,
+      classId: 1,
       guild: 'APES',
       guildRank: 'member',
       level: 60,
+      uploader: 'pattez',
       createdAt: new Date(),
-      updatedAt: new Date(),
+      lastSeen: new Date()
     }
   ];
   await queryInterface.bulkInsert('players', data, {});

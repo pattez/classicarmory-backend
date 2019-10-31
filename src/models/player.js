@@ -22,18 +22,34 @@ const setup = (sequelize) => {
       type: Sequelize.STRING,
       allowNull: false
     },
-    race: {
+    raceId: {
       type: Sequelize.SMALLINT,
+      references: {
+        model: 'races',
+        key: 'id'
+      }
     },
-    class: {
+    classId: {
       type: Sequelize.SMALLINT,
+      references: {
+        model: 'classes',
+        key: 'id'
+      }
     },
-    gender: {
+    genderId: {
       type: Sequelize.SMALLINT,
+      references: {
+        model: 'genders',
+        key: 'id'
+      }
     },
-    server: {
+    serverId: {
       type: Sequelize.SMALLINT,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'servers',
+        key: 'id'
+      }
     },
     guild: {
       type: Sequelize.STRING,
