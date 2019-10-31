@@ -198,7 +198,12 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('players');
+    await queryInterface.dropTable('playerCurrentGear');
     await queryInterface.dropTable('playerGear');
+    await queryInterface.dropTable('players');
+    await queryInterface.dropTable('servers');
+    await queryInterface.dropTable('classes');
+    await queryInterface.dropTable('races');
+    await queryInterface.dropTable('genders');
   }
 };
