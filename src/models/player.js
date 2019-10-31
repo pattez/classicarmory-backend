@@ -1,15 +1,14 @@
 const Sequelize = require('sequelize');
 const Model = Sequelize.Model;
-const shortid = require('shortid');
 
 class player extends Model {}
 
 const setup = (sequelize) => {
   player.init({
     id: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       primaryKey: true,
-      defaultValue: shortid.generate
+      autoIncrement: true
     },
     uploader: {
       type: Sequelize.STRING,
@@ -24,16 +23,16 @@ const setup = (sequelize) => {
       allowNull: false
     },
     race: {
-      type: Sequelize.STRING,
+      type: Sequelize.SMALLINT,
     },
     class: {
-      type: Sequelize.STRING,
+      type: Sequelize.SMALLINT,
     },
     gender: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.SMALLINT,
     },
     server: {
-      type: Sequelize.STRING,
+      type: Sequelize.SMALLINT,
       allowNull: false
     },
     guild: {
@@ -43,18 +42,10 @@ const setup = (sequelize) => {
       type: Sequelize.STRING,
     },
     level: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.SMALLINT,
     },
     createdAt: {
       allowNull: false,
-      type: Sequelize.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
-    },
-    deletedAt: {
-      allowNull: true,
       type: Sequelize.DATE
     }
   }, { sequelize });

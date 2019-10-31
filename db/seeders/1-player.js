@@ -1,10 +1,7 @@
 
-const shortid = require('shortid');
-
 async function up(queryInterface) {
   const data = [
     {
-      id: shortid.generate(),
       name: 'pattez',
       server: 'gehennas',
       gender: 2,
