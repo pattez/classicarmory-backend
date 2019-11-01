@@ -137,6 +137,10 @@ module.exports = {
         type: Sequelize.SMALLINT,
       },
     });
+    await queryInterface.addConstraint('playerGear', ['playerId', 'slotId', 'itemId'], {
+      type: 'unique',
+      name: 'playerId_slotId_itemId_combo',
+    });
     await queryInterface.createTable('playerCurrentGear', {
       playerId: {
         type: Sequelize.INTEGER,

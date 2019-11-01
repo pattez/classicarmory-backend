@@ -25,7 +25,10 @@ const setup = (sequelize) => {
     itemId: {
       type: Sequelize.SMALLINT,
     },
-  }, { sequelize, freezeTableName: true });
+  }, {
+    sequelize,
+    freezeTableName: true,
+  });
 };
 
 module.exports = { setup };

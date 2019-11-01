@@ -66,7 +66,11 @@ const setup = (sequelize) => {
       type: Sequelize.DATE,
       defaultValue: new Date(),
     },
-  }, { sequelize });
+  }, {
+    hooks: {
+    },
+    sequelize,
+  });
 };
 
 module.exports = { setup };

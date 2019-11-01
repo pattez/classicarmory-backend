@@ -71,7 +71,12 @@ const setup = (sequelize) => {
     slot_19: {
       type: Sequelize.SMALLINT,
     },
-  }, { sequelize, freezeTableName: true });
+  }, {
+    hooks: {
+    },
+    sequelize,
+    freezeTableName: true,
+  });
 };
 
 module.exports = { setup };

@@ -1,21 +1,21 @@
 
 async function up(queryInterface) {
-  const data = [
-    {
-      name: 'pattez',
-      serverId: 9,
-      genderId: 3,
-      raceId: 7,
-      classId: 8,
-      guild: 'APES',
-      guildRank: 'member',
-      level: 60,
-      uploader: 'pattez',
-      createdAt: new Date(),
-      lastSeen: new Date(),
-    },
-  ];
-  await queryInterface.bulkInsert('players', data, {});
+  // const data = [
+  //   {
+  //     name: 'pattez',
+  //     serverId: 9,
+  //     genderId: 3,
+  //     raceId: 7,
+  //     classId: 8,
+  //     guild: 'APES',
+  //     guildRank: 'member',
+  //     level: 60,
+  //     uploader: 'pattez',
+  //     createdAt: new Date(),
+  //     lastSeen: new Date(),
+  //   },
+  // ];
+  // await queryInterface.bulkInsert('players', data, {});
 }
 
 async function down(queryInterface) {

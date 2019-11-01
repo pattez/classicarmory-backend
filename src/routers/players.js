@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const sequelize = require('sequelize');
+const { getModelNames } = require('helpers/parse');
 const { models } = require('../db');
 
 router.post('/players', async (req, res) => {
@@ -10,16 +11,16 @@ router.post('/players', async (req, res) => {
     where: {
       [sequelize.Op.or]: [
         { name: { [sequelize.Op.iLike]: `%${name}%` } },
-        { server: { [sequelize.Op.iLike]: `%${name}%` } },
         { guild: { [sequelize.Op.iLike]: `%${name}%` } },
       ],
     },
   });
+
   res.send(players);
 });
 router.get('/players/:id', async (req, res) => {
   const player = await models.player.findByPk(req.params.id);
-  const playerGear = await models.playerGear.findOne({
+  const playerGear = await models.playerCurrentGear.findOne({
     where: { playerId: player.id },
     attributes: [
       'slot_1',
@@ -44,8 +45,11 @@ router.get('/players/:id', async (req, res) => {
       'slot_19',
     ],
   });
-
-  res.send({ player, playerGear });
+  const p = Object.keys(player.dataValues).map(
+    (i) => i.includes('Id') && { model: i.split('Id')[0], id: player.dataValues[i] },
+  ).filter((j) => j.id);
+  const values = await getModelNames(p);
+  res.send({ player: { ...player.dataValues, ...values }, playerGear });
 });
 
 module.exports = { router };

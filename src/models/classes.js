@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-const Model = Sequelize.Model;
+
+const { Model } = Sequelize;
 
 class classes extends Model {}
 
@@ -8,13 +9,13 @@ const setup = (sequelize) => {
     id: {
       type: Sequelize.SMALLINT,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     name: {
       type: Sequelize.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   }, { sequelize, freezeTableName: true });
-}
+};
 
-module.exports = {setup};
+module.exports = { setup };
