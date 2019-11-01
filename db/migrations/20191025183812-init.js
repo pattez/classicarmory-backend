@@ -113,6 +113,10 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+    await queryInterface.addConstraint('players', ['name', 'serverId'], {
+      type: 'unique',
+      name: 'name_serverId_combo'
+    });
     await queryInterface.createTable('playerGear', {
       id: {
         type: Sequelize.INTEGER,
