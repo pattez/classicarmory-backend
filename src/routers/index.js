@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 const players = require('routers/players');
 const cors = require('routers/cors');
 const upload = require('routers/upload');
@@ -9,5 +10,5 @@ const setup = function (app) {
 };
 
 module.exports = {
-  setup
+  setup,
 };

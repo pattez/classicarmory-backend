@@ -1,0 +1,8 @@
+{
+  "eslint.enable": true,
+  "eslint.validate": [
+    "javascript"
+  ],
+  "eslint.options": { "configFile": "./lint/.eslintrc.js" },
+  "eslint.nodePath": "./lint/node_modules"
+}

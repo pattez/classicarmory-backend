@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-const Model = Sequelize.Model;
+
+const { Model } = Sequelize;
 
 class race extends Model {}
 
@@ -8,16 +9,16 @@ const setup = (sequelize) => {
     id: {
       type: Sequelize.SMALLINT,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     name: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     faction: {
-      type: Sequelize.STRING
-    }
+      type: Sequelize.STRING,
+    },
   }, { sequelize });
-}
+};
 
-module.exports = {setup};
+module.exports = { setup };

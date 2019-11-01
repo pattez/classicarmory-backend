@@ -2,14 +2,14 @@
 async function up(queryInterface) {
   const data = [
     {
-      name: 'Neutrum / Unknown'
+      name: 'Neutrum / Unknown',
     },
     {
-      name: 'female'
+      name: 'female',
     },
     {
-      name: 'male'
-    }
+      name: 'male',
+    },
   ];
   await queryInterface.bulkInsert('genders', data, {});
 }
@@ -32,7 +32,7 @@ module.exports = {
     */
 
 
-  down: (queryInterface, Sequelize) => down(queryInterface, Sequelize)
+  down: (queryInterface, Sequelize) => down(queryInterface, Sequelize),
   /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.

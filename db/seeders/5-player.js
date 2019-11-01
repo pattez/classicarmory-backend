@@ -12,8 +12,8 @@ async function up(queryInterface) {
       level: 60,
       uploader: 'pattez',
       createdAt: new Date(),
-      lastSeen: new Date()
-    }
+      lastSeen: new Date(),
+    },
   ];
   await queryInterface.bulkInsert('players', data, {});
 }
@@ -36,7 +36,7 @@ module.exports = {
     */
 
 
-  down: (queryInterface, Sequelize) => down(queryInterface, Sequelize)
+  down: (queryInterface, Sequelize) => down(queryInterface, Sequelize),
   /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.

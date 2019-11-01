@@ -1,22 +1,23 @@
-const Sequelize = require("sequelize");
-const Model = Sequelize.Model;
+const Sequelize = require('sequelize');
+
+const { Model } = Sequelize;
 
 class gender extends Model {}
 
-const setup = sequelize => {
+const setup = (sequelize) => {
   gender.init(
     {
       id: {
         type: Sequelize.SMALLINT,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     },
-    { sequelize }
+    { sequelize },
   );
 };
 

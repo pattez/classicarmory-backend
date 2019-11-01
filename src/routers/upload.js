@@ -1,18 +1,19 @@
-const express = require("express");
+const express = require('express');
+
 const router = express.Router();
-const { models } = require("../db");
+const { models } = require('../db');
 
 const PLAYER_VALUES = {
-  0: "uploader",
-  1: "lastSeen",
-  2: "serverId",
-  3: "name",
-  4: "guild",
-  5: "guildRank",
-  6: "level",
-  7: "classId",
-  8: "raceId",
-  9: "genderId"
+  0: 'uploader',
+  1: 'lastSeen',
+  2: 'serverId',
+  3: 'name',
+  4: 'guild',
+  5: 'guildRank',
+  6: 'level',
+  7: 'classId',
+  8: 'raceId',
+  9: 'genderId',
 };
 
 const GEAR_VALUES = {
@@ -34,35 +35,35 @@ const GEAR_VALUES = {
   24: 16,
   25: 17,
   27: 18,
-  28: 19
+  28: 19,
 };
 
-router.post("/upload", async (req, res) => {
+router.post('/upload', async (req, res) => {
   console.log(req.body);
   const { lua } = req.body;
-  let mapped = lua.map(item => {
-    const i = item.split(",");
+  let mapped = lua.map((item) => {
+    const i = item.split(',');
     const obj = {};
     for (const j in i) {
       if (i[j]) {
-        obj["player"] = obj["player"] || {};
-        obj["gear"] = obj["gear"] || {};
-        if (i[j] && i[j] === "nil") {
+        obj.player = obj.player || {};
+        obj.gear = obj.gear || {};
+        if (i[j] && i[j] === 'nil') {
           i[j] = null;
         }
         if (j <= 9) {
-          obj["player"][PLAYER_VALUES[j]] = i[j];
+          obj.player[PLAYER_VALUES[j]] = i[j];
         }
         if (j >= 10) {
-          obj["gear"][`slot_${GEAR_VALUES[j]}`] = i[j];
+          obj.gear[`slot_${GEAR_VALUES[j]}`] = i[j];
         }
       }
     }
     return obj;
   });
   const servers = await models.server.findAll();
-  mapped = mapped.map(item => {
-    const server = servers.find(i => i.name === item.player.serverId);
+  mapped = mapped.map((item) => {
+    const server = servers.find((i) => i.name === item.player.serverId);
     const serverId = (server && server.id) || null;
     return { player: { ...item.player, serverId }, gear: { ...item.gear } };
   });
@@ -72,22 +73,21 @@ router.post("/upload", async (req, res) => {
   //     serverId: mapped.map((i) => i.player.serverId),
   //   }
   // });
-  console.log(players.length);
   for (const item of mapped) {
     const p = item.player;
     const g = item.gear;
     const player = await models.player.findOrCreate({
       where: {
-        name: p.name
+        name: p.name,
       },
       defaults: {
-        ...p
-      }
+        ...p,
+      },
     });
 
     if (!player[1]) {
       player[0].update({
-        ...p
+        ...p,
       });
     }
 
@@ -107,8 +107,8 @@ router.post("/upload", async (req, res) => {
     //   })
     // }
   }
-  console.log("Done");
-  res.send("Done");
+  console.log('Done');
+  res.send('Done');
 });
 
 module.exports = { router };

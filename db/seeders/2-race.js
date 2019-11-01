@@ -1,14 +1,14 @@
 
 async function up(queryInterface) {
   const data = [
-    {name: 'Human', faction: 'Alliance'},
-    {name: 'Orc', faction: 'Horde'},
-    {name: 'Dwarf', faction: 'Alliance'},
-    {name: 'Night Elf', faction: 'Alliance'},
-    {name: 'Undead', faction: 'Horde'},
-    {name: 'Tauren', faction: 'Horde'},
-    {name: 'Gnome', faction: 'Alliance'},
-    {name: 'Troll', faction: 'Horde'},
+    { name: 'Human', faction: 'Alliance' },
+    { name: 'Orc', faction: 'Horde' },
+    { name: 'Dwarf', faction: 'Alliance' },
+    { name: 'Night Elf', faction: 'Alliance' },
+    { name: 'Undead', faction: 'Horde' },
+    { name: 'Tauren', faction: 'Horde' },
+    { name: 'Gnome', faction: 'Alliance' },
+    { name: 'Troll', faction: 'Horde' },
   ];
   await queryInterface.bulkInsert('races', data, {});
 }
@@ -31,7 +31,7 @@ module.exports = {
     */
 
 
-  down: (queryInterface, Sequelize) => down(queryInterface, Sequelize)
+  down: (queryInterface, Sequelize) => down(queryInterface, Sequelize),
   /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.

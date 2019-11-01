@@ -1,9 +1,11 @@
 const Sequelize = require('sequelize');
+
 const dbName = process.env.DB_NAME || 'postgres';
 const dbUser = process.env.DB_USER || 'user';
 const dbPassword = process.env.DB_PASSWORD || 'test';
 const dbHost = process.env.DB_HOST || 'db';
-const {setup} = require('./models')
+const { setup } = require('./models');
+
 const logging = false; // process.env.NODE_ENV === 'development';
 
 
@@ -16,12 +18,12 @@ const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
   pool: {
     max: 5,
     min: 0,
-    idle: 10000
+    idle: 10000,
   },
   define: {
     paranoid: true,
-    timestamps: false
-  }
+    timestamps: false,
+  },
 });
 sequelize.authenticate().then(() => {
   console.log('Connected to database.');
@@ -31,6 +33,6 @@ sequelize.authenticate().then(() => {
 
 setup(sequelize);
 
-const models = sequelize.models;
+const { models } = sequelize;
 
-module.exports = {sequelize, models};
+module.exports = { sequelize, models };

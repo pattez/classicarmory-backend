@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-const Model = Sequelize.Model;
+
+const { Model } = Sequelize;
 
 class player extends Model {}
 
@@ -8,48 +9,48 @@ const setup = (sequelize) => {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     uploader: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     lastSeen: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
     },
     name: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     raceId: {
       type: Sequelize.SMALLINT,
       references: {
         model: 'races',
-        key: 'id'
-      }
+        key: 'id',
+      },
     },
     classId: {
       type: Sequelize.SMALLINT,
       references: {
         model: 'classes',
-        key: 'id'
-      }
+        key: 'id',
+      },
     },
     genderId: {
       type: Sequelize.SMALLINT,
       references: {
         model: 'genders',
-        key: 'id'
-      }
+        key: 'id',
+      },
     },
     serverId: {
       type: Sequelize.SMALLINT,
       allowNull: false,
       references: {
         model: 'servers',
-        key: 'id'
-      }
+        key: 'id',
+      },
     },
     guild: {
       type: Sequelize.STRING,
@@ -63,9 +64,9 @@ const setup = (sequelize) => {
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
-      defaultValue: new Date()
-    }
+      defaultValue: new Date(),
+    },
   }, { sequelize });
-}
+};
 
-module.exports = {setup};
+module.exports = { setup };
