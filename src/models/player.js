@@ -4,6 +4,13 @@ const { Model } = Sequelize;
 
 class player extends Model {}
 
+const resolveName = async (model, id) => {
+  const data = await model.findOne({ where: { id } });
+  return data.dataValues.name;
+};
+
+const getServer = async (sequelize, id) => resolveName(sequelize.models.server, id);
+
 const setup = (sequelize) => {
   player.init({
     id: {

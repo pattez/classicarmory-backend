@@ -6,17 +6,32 @@ const { getModelNames } = require('helpers/parse');
 const { models } = require('../db');
 
 router.post('/players', async (req, res) => {
-  const { name } = req.body;
-  const players = await models.player.findAll({
+  const { name, offset } = req.body;
+  console.log(offset);
+  const servers = await models.server.findAll();
+  const server = servers.find((i) => i.name.toLowerCase() === name.toLowerCase());
+  const where = [
+    { name: { [sequelize.Op.iLike]: `%${name}%` } },
+    { guild: { [sequelize.Op.iLike]: `%${name}%` } },
+  ];
+  if (server) {
+    where.push({ serverId: server.id });
+  }
+  const players = models.player.findAll({
     where: {
-      [sequelize.Op.or]: [
-        { name: { [sequelize.Op.iLike]: `%${name}%` } },
-        { guild: { [sequelize.Op.iLike]: `%${name}%` } },
-      ],
+      [sequelize.Op.or]: where,
     },
+    limit: 50,
+    offset,
   });
-
-  res.send(players);
+  const result = await players.map(async (player) => {
+    const p = Object.keys(player.dataValues).map(
+      (i) => i.includes('Id') && { model: i.split('Id')[0], id: player.dataValues[i] },
+    ).filter((j) => j.id);
+    const values = await getModelNames(p);
+    return { ...player.dataValues, ...values };
+  });
+  res.send(result);
 });
 router.get('/players/:id', async (req, res) => {
   const player = await models.player.findByPk(req.params.id);
