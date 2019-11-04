@@ -6,6 +6,7 @@ const { models, sequelize } = require('../db');
 
 router.post('/upload', async (req, res) => {
   req.setTimeout(900000);
+  res.send('Done');
   const { lua } = req.body;
   const data = await formatLua(lua);
   for (const item of data) {
@@ -56,7 +57,6 @@ router.post('/upload', async (req, res) => {
   await sequelize.query(gearQuery);
 
   console.log('Done', new Date());
-  res.send('Done');
 });
 
 module.exports = { router };
