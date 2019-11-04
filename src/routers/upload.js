@@ -5,6 +5,7 @@ const { formatLua, formatGear } = require('helpers/upload');
 const { models, sequelize } = require('../db');
 
 router.post('/upload', async (req, res) => {
+  console.log(req.headers['content-length']);
   req.setTimeout(900000);
   res.send('Done');
   const { lua } = req.body;
