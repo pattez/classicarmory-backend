@@ -2,9 +2,21 @@ const express = require('express');
 
 const router = express.Router();
 const { formatLua, formatGear } = require('helpers/upload');
+const { authentication } = require('lib/authentication');
 const { models, sequelize } = require('../db');
 
-router.post('/upload', async (req, res) => {
+const validate = async (req, res, next) => {
+  const { lua } = req.body;
+  if (!lua) {
+    return res.send('Bad data');
+  } if (lua && lua.length > 500) {
+    return res.send('Data too big');
+  }
+  return next();
+};
+
+router.post('/upload', validate, authentication, async (req, res) => {
+  console.log(req.headers.authorization);
   console.log(req.headers['content-length']);
   req.setTimeout(900000);
   res.send('Done');
@@ -44,14 +56,6 @@ router.post('/upload', async (req, res) => {
       });
     }
   }
-
-  // const players = formatPlayers(data.map((i) => i.player));
-  // console.log(players);
-  // const playerQuery = `INSERT INTO players
-  // (uploader, "lastSeen",
-  // name, "raceId", "classId", "genderId", "serverId", guild, "guildRank", level)
-  //  VALUES ${players} ON CONFLICT UPDATE`;
-  // await sequelize.query(playerQuery);
 
   const gear = formatGear(data);
   const gearQuery = `INSERT INTO "playerGear" ("playerId", "slotId", "itemId") VALUES ${gear} ON CONFLICT DO NOTHING`;
