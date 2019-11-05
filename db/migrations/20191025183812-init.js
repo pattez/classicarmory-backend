@@ -208,6 +208,16 @@ module.exports = {
         type: Sequelize.SMALLINT,
       },
     });
+    await queryInterface.createTable('uploaders', {
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
