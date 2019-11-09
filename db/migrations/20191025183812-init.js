@@ -136,10 +136,13 @@ module.exports = {
       itemId: {
         type: Sequelize.SMALLINT,
       },
+      enchantId: {
+        type: Sequelize.SMALLINT,
+      },
     });
-    await queryInterface.addConstraint('playerGear', ['playerId', 'slotId', 'itemId'], {
+    await queryInterface.addConstraint('playerGear', ['playerId', 'slotId', 'itemId', 'enchantId'], {
       type: 'unique',
-      name: 'playerId_slotId_itemId_combo',
+      name: 'playerId_slotId_itemId_enchantId_combo',
     });
     await queryInterface.createTable('playerCurrentGear', {
       playerId: {

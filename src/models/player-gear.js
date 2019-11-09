@@ -25,6 +25,9 @@ const setup = (sequelize) => {
     itemId: {
       type: Sequelize.SMALLINT,
     },
+    enchantId: {
+      type: Sequelize.SMALLINT,
+    },
   }, {
     sequelize,
     freezeTableName: true,

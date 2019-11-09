@@ -26,6 +26,34 @@ const INVENTORY_IDS = {
   19: 'tabard',
 };
 
+const ENCHANT_INVENTORY_IDS = {
+  1: 'head',
+  3: 'shoulder',
+  5: 'chest',
+  7: 'legs',
+  8: 'feet',
+  9: 'wrist',
+  10: 'hands',
+  15: 'back',
+  16: 'main hand',
+  17: 'off hand',
+  18: 'ranged',
+};
+
+const ENCHANT_VALUES = {
+  29: 1,
+  30: 3,
+  31: 5,
+  32: 7,
+  33: 8,
+  34: 9,
+  35: 10,
+  36: 15,
+  37: 16,
+  38: 17,
+  39: 18,
+};
+
 
 const PLAYER_VALUES = {
   0: 'uploader',
@@ -67,4 +95,6 @@ module.exports = {
   INVENTORY_IDS,
   PLAYER_VALUES,
   GEAR_VALUES,
+  ENCHANT_INVENTORY_IDS,
+  ENCHANT_VALUES,
 };

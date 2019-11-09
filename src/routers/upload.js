@@ -58,7 +58,7 @@ router.post('/upload', validate, authentication, async (req, res) => {
   }
 
   const gear = formatGear(data);
-  const gearQuery = `INSERT INTO "playerGear" ("playerId", "slotId", "itemId") VALUES ${gear} ON CONFLICT DO NOTHING`;
+  const gearQuery = `INSERT INTO "playerGear" ("playerId", "slotId", "itemId", "enchantId") VALUES ${gear} ON CONFLICT DO NOTHING`;
   await sequelize.query(gearQuery);
 
   console.log('Done', new Date());
