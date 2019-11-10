@@ -14,7 +14,8 @@
     "sequelize-auto-migrations": "~1.0.3",
     "sequelize": "~5.21.1",
     "pg-hstore": "~2.3.2",
-    "pg": "~7.4.3"
+    "pg": "~7.4.3",
+    "express-rate-limit": "~5.0.0"
   },
   "repository": {
     "type": "git",
