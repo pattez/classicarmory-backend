@@ -238,5 +238,6 @@ module.exports = {
     await queryInterface.dropTable('classes');
     await queryInterface.dropTable('races');
     await queryInterface.dropTable('genders');
+    await queryInterface.dropTable('uploaders');
   },
 };
