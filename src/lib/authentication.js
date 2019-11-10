@@ -9,7 +9,7 @@ const authentication = async (req, res, next) => {
       where: { password: authorization },
       attributes: [
         'name',
-        'passowrd',
+        'password',
         'uploads',
       ],
     });
