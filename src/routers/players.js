@@ -23,7 +23,7 @@ router.post('/players', async (req, res) => {
       [sequelize.Op.or]: where,
     },
     limit: 50,
-    offset,
+    offset: offset || 0,
   });
   const result = await players.map(async (player) => {
     const p = Object.keys(player.dataValues).map(
