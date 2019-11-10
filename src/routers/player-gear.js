@@ -15,7 +15,6 @@ router.get('/players/:id/gear', async (req, res) => {
     result[`slot_${dataValues.slotId}`] = result[`slot_${dataValues.slotId}`] || [];
     result[`slot_${dataValues.slotId}`].push(dataValues.itemId);
   }
-  console.log(result);
   res.send(result);
 });
 

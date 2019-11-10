@@ -7,6 +7,8 @@ const authentication = async (req, res, next) => {
   if (PRODUCTION) {
     const user = await models.uploader.findOne({ where: { password: authorization } });
     if (user) {
+      const { uploads } = user.dataValues;
+      await user.update({ uploads: uploads + 1 });
       return next();
     }
     return res.status(401).send('Not authorized');

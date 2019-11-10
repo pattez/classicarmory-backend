@@ -14,6 +14,9 @@ const setup = (sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    uploads: {
+      type: Sequelize.INTEGER,
+    },
   }, { sequelize });
 };
 

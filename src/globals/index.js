@@ -54,6 +54,29 @@ const ENCHANT_VALUES = {
   39: 18,
 };
 
+const SLOTS = [
+  'slot_1',
+  'slot_1',
+  'slot_2',
+  'slot_3',
+  'slot_4',
+  'slot_5',
+  'slot_6',
+  'slot_7',
+  'slot_8',
+  'slot_9',
+  'slot_10',
+  'slot_11',
+  'slot_12',
+  'slot_13',
+  'slot_14',
+  'slot_15',
+  'slot_16',
+  'slot_17',
+  'slot_18',
+  'slot_19',
+];
+
 
 const PLAYER_VALUES = {
   0: 'uploader',
@@ -97,4 +120,5 @@ module.exports = {
   GEAR_VALUES,
   ENCHANT_INVENTORY_IDS,
   ENCHANT_VALUES,
+  SLOTS
 };

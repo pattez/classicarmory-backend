@@ -140,9 +140,9 @@ module.exports = {
         type: Sequelize.SMALLINT,
       },
     });
-    await queryInterface.addConstraint('playerGear', ['playerId', 'slotId', 'itemId', 'enchantId'], {
+    await queryInterface.addConstraint('playerGear', ['playerId', 'slotId', 'itemId'], {
       type: 'unique',
-      name: 'playerId_slotId_itemId_enchantId_combo',
+      name: 'playerId_slotId_itemId_combo',
     });
     await queryInterface.createTable('playerCurrentGear', {
       playerId: {
@@ -219,6 +219,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      uploads: {
+        type: Sequelize.INTEGER,
       },
     });
   },

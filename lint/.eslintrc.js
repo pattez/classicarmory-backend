@@ -25,6 +25,7 @@ module.exports = {
     "no-restricted-syntax": ["error", "never"],
     "no-console": "off",
     "linebreak-style": "off",
-    "no-await-in-loop": "off"
+    "no-await-in-loop": "off",
+    "radix": "off"
   }
 };
