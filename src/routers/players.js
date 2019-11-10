@@ -34,6 +34,7 @@ router.post('/players', async (req, res) => {
   });
   res.send(result);
 });
+
 router.get('/players/:id', async (req, res) => {
   const player = await models.player.findByPk(req.params.id);
   const playerCurrentGear = await models.playerCurrentGear.findOne({
