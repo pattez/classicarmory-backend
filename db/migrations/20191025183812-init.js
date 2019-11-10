@@ -212,6 +212,10 @@ module.exports = {
       },
     });
     await queryInterface.createTable('uploaders', {
+      id: {
+        type: Sequelize.SMALLINT,
+        primaryKey: true,
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,

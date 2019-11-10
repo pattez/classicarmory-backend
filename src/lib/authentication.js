@@ -7,11 +7,6 @@ const authentication = async (req, res, next) => {
   if (PRODUCTION) {
     const user = await models.uploader.findOne({
       where: { password: authorization },
-      attributes: [
-        'name',
-        'password',
-        'uploads',
-      ],
     });
     if (user) {
       const { uploads } = user.dataValues;
