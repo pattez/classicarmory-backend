@@ -58,7 +58,8 @@ router.post('/upload', validate, authentication, async (req, res) => {
   }
 
   const gear = formatGear(data);
-  const gearQuery = `INSERT INTO "playerGear" ("playerId", "slotId", "itemId", "enchantId") VALUES ${gear} ON CONFLICT ("playerId", "slotId", "itemId") DO UPDATE SET "enchantId" = excluded."enchantId"`;
+  const gearQuery = `INSERT INTO "playerGear" ("playerId", "slotId", "itemId", "enchantId") VALUES ${gear} ON CONFLICT ("playerId", "slotId", "itemId") DO UPDATE SET ("playerId", "slotId", "itemId", "enchantId")
+  = (excluded."playerId", excluded."slotId", excluded."itemId", excluded."enchantId")`;
   await sequelize.query(gearQuery);
 
   console.log('Done', new Date());
