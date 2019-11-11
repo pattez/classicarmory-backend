@@ -16,7 +16,6 @@ const validate = async (req, res, next) => {
 };
 
 router.post('/upload', validate, authentication, async (req, res) => {
-  console.log(req.headers.authorization);
   console.log(req.headers['content-length']);
   req.setTimeout(900000);
   res.send('Done');

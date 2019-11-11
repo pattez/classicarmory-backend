@@ -4,10 +4,12 @@ const PRODUCTION = process.env.NODE_ENV === 'production';
 
 const authentication = async (req, res, next) => {
   const { authorization } = req.headers;
+  console.log(authorization)
   if (PRODUCTION) {
     const user = await models.uploader.findOne({
       where: { password: authorization },
     });
+    console.log(user.dataValues.name, authorization);
     if (user) {
       const { uploads } = user.dataValues;
       await user.update({ uploads: uploads + 1 });
