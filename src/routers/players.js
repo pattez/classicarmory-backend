@@ -67,7 +67,11 @@ router.get('/players/:id', async (req, res) => {
   }
 
   for (const g of Object.keys(gear)) {
-    gear[g] = gear[g].sort((a, b) => (b.current ? 1 : -1));
+    if (gear[g].length > 1) {
+      gear[g] = gear[g].sort((a, b) => (b.current ? 1 : -1));
+    } else if (gear[g].length === 1) {
+      gear[g][0].current = true;
+    }
   }
 
   res.send({ player: { ...player.dataValues, ...values }, gear });
