@@ -113,6 +113,15 @@ const GEAR_VALUES = {
   28: 19,
 };
 
+const HONOR_VALUES = {
+  40: 'todayHK',
+  41: 'todayHonor',
+  42: 'yesterdayHK',
+  43: 'yesterdayHonor',
+  44: 'lifetimeHK',
+  45: 'lifetimeRank',
+};
+
 module.exports = {
   gender,
   INVENTORY_IDS,
@@ -120,5 +129,6 @@ module.exports = {
   GEAR_VALUES,
   ENCHANT_INVENTORY_IDS,
   ENCHANT_VALUES,
-  SLOTS
+  SLOTS,
+  HONOR_VALUES,
 };

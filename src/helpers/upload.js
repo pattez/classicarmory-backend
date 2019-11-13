@@ -1,4 +1,6 @@
-const { PLAYER_VALUES, GEAR_VALUES, ENCHANT_VALUES } = require('globals');
+const {
+  PLAYER_VALUES, GEAR_VALUES, ENCHANT_VALUES, HONOR_VALUES,
+} = require('globals');
 const {
   models: { server },
 } = require('../db');
@@ -15,13 +17,24 @@ const formatLua = async (lua) => {
         if (i[j] && i[j] === 'nil') {
           i[j] = null;
         }
+
+        // Player
         if (j <= 9) {
           obj.player[PLAYER_VALUES[j]] = i[j];
         }
+
+        // Honor
+        if (j >= 40) {
+          obj.player[HONOR_VALUES[j]] = i[j];
+        }
+
+        // Gear
         if (j >= 10 && j < 29) {
           obj.gear[`slot_${GEAR_VALUES[j]}`] = i[j];
         }
-        if (j >= 29) {
+
+        // Enchant
+        if (j >= 29 && j < 40) {
           obj.enchant[`slot_${ENCHANT_VALUES[j]}`] = i[j];
         }
       }
