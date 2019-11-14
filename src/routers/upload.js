@@ -21,7 +21,7 @@ router.post('/upload', validate, authentication, async (req, res) => {
   res.send('Done');
   const { lua } = req.body;
   let data = await formatLua(lua);
-  console.log('Data length', data.length);
+  console.log('Data length:', data.length);
   for (const item of data) {
     const p = item.player;
     const g = item.gear;
@@ -34,15 +34,6 @@ router.post('/upload', validate, authentication, async (req, res) => {
       },
     });
     item.player.id = player[0].id;
-
-    if (!player[1]) {
-      if (+new Date(p.lastSeen) > +new Date(player[0].dataValues.lastSeen)) {
-        player[0].update({
-          ...p,
-        });
-      }
-    }
-
     const playerCurrentGear = await models.playerCurrentGear.findOrCreate({
       where: {
         playerId: player[0].id,
@@ -54,8 +45,15 @@ router.post('/upload', validate, authentication, async (req, res) => {
     });
     if (!playerCurrentGear[1]) {
       if (+new Date(p.lastSeen) > +new Date(player[0].dataValues.lastSeen)) {
-        playerCurrentGear[0].update({
+        await playerCurrentGear[0].update({
           ...g,
+        });
+      }
+    }
+    if (!player[1]) {
+      if (+new Date(p.lastSeen) > +new Date(player[0].dataValues.lastSeen)) {
+        await player[0].update({
+          ...p,
         });
       } else {
         delete item.gear;
@@ -65,9 +63,7 @@ router.post('/upload', validate, authentication, async (req, res) => {
     }
   }
 
-
   data = data.filter((d) => Object.keys(d).length !== 0);
-
 
   if (data.length > 0) {
     console.log('Starting gear insert');
