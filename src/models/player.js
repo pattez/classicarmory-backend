@@ -75,27 +75,27 @@ const setup = (sequelize) => {
     },
     todayHK: {
       type: Sequelize.INTEGER,
-      default: 0,
+      defaultValue: 0,
     },
     todayHonor: {
       type: Sequelize.INTEGER,
-      default: 0,
+      defaultValue: 0,
     },
     yesterdayHK: {
       type: Sequelize.INTEGER,
-      default: 0,
+      defaultValue: 0,
     },
     yesterdayHonor: {
       type: Sequelize.INTEGER,
-      default: 0,
+      defaultValue: 0,
     },
     lifetimeHK: {
       type: Sequelize.INTEGER,
-      default: 0,
+      defaultValue: 0,
     },
     lifetimeRank: {
       type: Sequelize.SMALLINT,
-      default: 0,
+      defaultValue: 0,
     },
   }, {
     hooks: {
