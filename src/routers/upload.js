@@ -66,14 +66,13 @@ router.post('/upload', validate, authentication, async (req, res) => {
   data = data.filter((d) => Object.keys(d).length !== 0);
 
   if (data.length > 0) {
-    console.log('Starting gear insert');
+    console.log('Starting gear insert...');
     const gear = formatGear(data);
     const gearUnique = Array.from(new Set(gear));
     console.log('Gear rows:', gearUnique.length);
     const gearQuery = `INSERT INTO "playerGear" ("playerId", "slotId", "itemId", "enchantId") VALUES ${gearUnique} ON CONFLICT ("playerId", "slotId", "itemId") DO UPDATE SET "enchantId" = excluded."enchantId"`;
     await sequelize.query(gearQuery);
   }
-
 
   console.log('Done', new Date());
 });
