@@ -26,6 +26,17 @@ const INVENTORY_IDS = {
   19: 'tabard',
 };
 
+const RACES = {
+  1: { name: 'Human', faction: 'Alliance' },
+  2: { name: 'Orc', faction: 'Horde' },
+  3: { name: 'Dwarf', faction: 'Alliance' },
+  4: { name: 'Night Elf', faction: 'Alliance' },
+  5: { name: 'Undead', faction: 'Horde' },
+  6: { name: 'Tauren', faction: 'Horde' },
+  7: { name: 'Gnome', faction: 'Alliance' },
+  8: { name: 'Troll', faction: 'Horde' },
+};
+
 const ENCHANT_INVENTORY_IDS = {
   1: 'head',
   3: 'shoulder',
@@ -133,4 +144,5 @@ module.exports = {
   ENCHANT_VALUES,
   SLOTS,
   HONOR_VALUES,
+  RACES,
 };
