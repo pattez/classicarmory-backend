@@ -120,6 +120,8 @@ const HONOR_VALUES = {
   43: 'yesterdayHonor',
   44: 'lifetimeHK',
   45: 'lifetimeRank',
+  46: 'honorProgress',
+  47: 'rankNumber',
 };
 
 module.exports = {

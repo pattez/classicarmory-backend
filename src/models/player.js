@@ -97,6 +97,14 @@ const setup = (sequelize) => {
       type: Sequelize.SMALLINT,
       defaultValue: 0,
     },
+    honorProgress: {
+      type: Sequelize.FLOAT,
+      defaultValue: 0,
+    },
+    rankNumber: {
+      type: Sequelize.SMALLINT,
+      defaultValue: 0,
+    },
   }, {
     hooks: {
     },
