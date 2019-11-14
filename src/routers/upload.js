@@ -44,14 +44,14 @@ router.post('/upload', validate, authentication, async (req, res) => {
       },
     });
     if (!playerCurrentGear[1]) {
-      if (+new Date(p.lastSeen) > +new Date(player[0].dataValues.lastSeen)) {
+      if (+new Date(p.lastSeen) >= +new Date(player[0].dataValues.lastSeen)) {
         await playerCurrentGear[0].update({
           ...g,
         });
       }
     }
     if (!player[1]) {
-      if (+new Date(p.lastSeen) > +new Date(player[0].dataValues.lastSeen)) {
+      if (+new Date(p.lastSeen) >= +new Date(player[0].dataValues.lastSeen)) {
         await player[0].update({
           ...p,
         });
