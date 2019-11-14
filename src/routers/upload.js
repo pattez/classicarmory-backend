@@ -20,7 +20,8 @@ router.post('/upload', validate, authentication, async (req, res) => {
   req.setTimeout(900000);
   res.send('Done');
   const { lua } = req.body;
-  const data = await formatLua(lua);
+  let data = await formatLua(lua);
+  console.log('Data length', data.length);
   for (const item of data) {
     const p = item.player;
     const g = item.gear;
@@ -35,9 +36,11 @@ router.post('/upload', validate, authentication, async (req, res) => {
     item.player.id = player[0].id;
 
     if (!player[1]) {
-      player[0].update({
-        ...p,
-      });
+      if (+new Date(p.lastSeen) > +new Date(player[0].dataValues.lastSeen)) {
+        player[0].update({
+          ...p,
+        });
+      }
     }
 
     const playerCurrentGear = await models.playerCurrentGear.findOrCreate({
@@ -50,18 +53,31 @@ router.post('/upload', validate, authentication, async (req, res) => {
       },
     });
     if (!playerCurrentGear[1]) {
-      playerCurrentGear[0].update({
-        ...g,
-      });
+      if (+new Date(p.lastSeen) > +new Date(player[0].dataValues.lastSeen)) {
+        playerCurrentGear[0].update({
+          ...g,
+        });
+      } else {
+        delete item.gear;
+        delete item.player;
+        delete item.enchant;
+      }
     }
   }
 
-  const gear = formatGear(data);
 
-  const gearUnique = Array.from(new Set(gear));
+  data = data.filter((d) => Object.keys(d).length !== 0);
 
-  const gearQuery = `INSERT INTO "playerGear" ("playerId", "slotId", "itemId", "enchantId") VALUES ${gearUnique} ON CONFLICT ("playerId", "slotId", "itemId") DO UPDATE SET "enchantId" = excluded."enchantId"`;
-  await sequelize.query(gearQuery);
+
+  if (data.length > 0) {
+    console.log('Starting gear insert');
+    const gear = formatGear(data);
+    const gearUnique = Array.from(new Set(gear));
+    console.log('Gear rows:', gearUnique.length);
+    const gearQuery = `INSERT INTO "playerGear" ("playerId", "slotId", "itemId", "enchantId") VALUES ${gearUnique} ON CONFLICT ("playerId", "slotId", "itemId") DO UPDATE SET "enchantId" = excluded."enchantId"`;
+    await sequelize.query(gearQuery);
+  }
+
 
   console.log('Done', new Date());
 });
