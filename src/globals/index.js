@@ -126,13 +126,19 @@ const GEAR_VALUES = {
 
 const HONOR_VALUES = {
   40: 'todayHK',
-  41: 'todayHonor',
-  42: 'yesterdayHK',
-  43: 'yesterdayHonor',
-  44: 'lifetimeHK',
-  45: 'lifetimeRank',
-  46: 'honorProgress',
-  47: 'rankNumber',
+  41: 'yesterdayHK',
+  42: 'yesterdayHonor',
+  43: 'lifetimeHK',
+  44: 'lifetimeRank',
+  45: 'honorProgress',
+  46: 'rankNumber',
+  47: 'thisweekHK',
+  48: 'thisweekHonor',
+  49: 'lastweekHK',
+  50: 'lastweekHonor',
+  51: 'lastweekStanding',
+  52: 'lifetimeDK',
+  53: 'lifetimeHighestRank',
 };
 
 module.exports = {

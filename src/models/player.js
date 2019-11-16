@@ -77,10 +77,6 @@ const setup = (sequelize) => {
       type: Sequelize.INTEGER,
       defaultValue: 0,
     },
-    todayHonor: {
-      type: Sequelize.INTEGER,
-      defaultValue: 0,
-    },
     yesterdayHK: {
       type: Sequelize.INTEGER,
       defaultValue: 0,
@@ -102,6 +98,30 @@ const setup = (sequelize) => {
       defaultValue: 0,
     },
     rankNumber: {
+      type: Sequelize.SMALLINT,
+      defaultValue: 0,
+    },
+    thisweekHK: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    thisweekHonor: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    lastweekHK: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    lastweekHonor: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    lastweekStanding: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    lifetimeDK: {
       type: Sequelize.SMALLINT,
       defaultValue: 0,
     },
