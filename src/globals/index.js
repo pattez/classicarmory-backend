@@ -1,4 +1,4 @@
-const FRONTEND_URL = process.env.DB_NAME === 'development' ? 'localhost:8090' : 'https://classicarmory.org';
+const FRONTEND_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://classicarmory.org';
 
 
 const gender = {
