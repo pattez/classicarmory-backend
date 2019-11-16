@@ -29,6 +29,21 @@ const INVENTORY_IDS = {
   19: 'tabard',
 };
 
+const CLASSES = {
+  1: 'Warrior',
+  2: 'Paladin',
+  3: 'Hunter',
+  4: 'Rogue',
+  5: 'Priest',
+  6: 'DeathKnight',
+  7: 'Shaman',
+  8: 'Mage',
+  9: 'Warlock',
+  10: 'Monk',
+  11: 'Druid',
+  12: 'Demon',
+};
+
 const RACES = {
   1: { name: 'Human', faction: 'Alliance' },
   2: { name: 'Orc', faction: 'Horde' },
@@ -155,4 +170,5 @@ module.exports = {
   HONOR_VALUES,
   RACES,
   FRONTEND_URL,
+  CLASSES,
 };
