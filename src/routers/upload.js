@@ -3,7 +3,14 @@ const express = require('express');
 const router = express.Router();
 const { formatLua, formatGear } = require('helpers/upload');
 const { authentication } = require('lib/authentication');
+const rateLimit = require('express-rate-limit');
 const { models, sequelize } = require('../db');
+
+const uploadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 50, // limit each IP to 100 requests per windowMs
+  message: 'Too many uploads from this IP. Try again in 15minutes'
+});
 
 const validate = async (req, res, next) => {
   const { lua } = req.body;
@@ -15,7 +22,7 @@ const validate = async (req, res, next) => {
   return next();
 };
 
-router.post('/upload', validate, authentication, async (req, res) => {
+router.post('/upload', validate, authentication, uploadLimiter, async (req, res) => {
   console.log(req.headers['content-length']);
   req.setTimeout(900000);
   res.send('Done');
