@@ -9,7 +9,7 @@ const { models, sequelize } = require('../db');
 const uploadLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 50, // limit each IP to 100 requests per windowMs
-  message: 'Too many uploads from this IP. Try again in 15minutes'
+  message: 'Too many uploads from this IP. Try again in 15minutes',
 });
 
 const validate = async (req, res, next) => {
@@ -18,6 +18,10 @@ const validate = async (req, res, next) => {
     return res.send('Bad data');
   } if (lua && lua.length > 500) {
     return res.send('Data too big');
+  } if (!Array.isArray(lua)) {
+    return res.send('Invalid data');
+  } if (lua && lua.length === 0) {
+    return res.send('No data');
   }
   return next();
 };
