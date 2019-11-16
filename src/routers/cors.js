@@ -1,9 +1,10 @@
 const express = require('express');
+const { FRONTEND_URL } = require('globals');
 
 const router = express.Router();
 
 router.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', FRONTEND_URL);
   res.header(
     'Access-Control-Allow-Headers',
     'Content-Type, Authorization',
