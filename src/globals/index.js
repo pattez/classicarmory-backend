@@ -1,3 +1,6 @@
+const FRONTEND_URL = process.env.DB_NAME === 'development' ? 'localhost:8090' : 'https://classicarmory.org';
+
+
 const gender = {
   1: 'Neutrum / Unknown',
   2: 'Male',
@@ -151,4 +154,5 @@ module.exports = {
   SLOTS,
   HONOR_VALUES,
   RACES,
+  FRONTEND_URL,
 };
