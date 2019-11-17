@@ -3,8 +3,7 @@ const { models } = require('../db');
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
 const authentication = async (req, res, next) => {
-  const { authorization } = req.headers;
-  console.log(authorization)
+  const { authorization } = req.body;
   if (PRODUCTION) {
     const user = await models.uploader.findOne({
       where: { password: authorization },
