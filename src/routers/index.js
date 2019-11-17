@@ -4,6 +4,7 @@ const cors = require('routers/cors');
 const upload = require('routers/upload');
 const playerGear = require('routers/player-gear');
 const honor = require('routers/honor');
+const jobs = require('routers/jobs');
 
 const setup = function (app) {
   app.use(cors.router);
@@ -11,6 +12,7 @@ const setup = function (app) {
   app.use(upload.router);
   app.use(playerGear.router);
   app.use(honor.router);
+  app.use(jobs.router);
 };
 
 module.exports = {
