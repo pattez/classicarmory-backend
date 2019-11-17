@@ -26,7 +26,7 @@ const validate = async (req, res, next) => {
   return next();
 };
 
-router.post('/upload', validate, authentication, uploadLimiter, async (req, res) => {
+router.post('/upload', validate, uploadLimiter, async (req, res) => {
   console.log(req.headers['content-length']);
   req.setTimeout(900000);
   res.send('Done');
