@@ -5,7 +5,7 @@ const { formatLua, formatGear } = require('helpers/upload');
 const rateLimit = require('express-rate-limit');
 const atob = require('atob');
 const { getDay } = require('helpers/date');
-const Sequelize = require('Sequelize');
+const Sequelize = require('sequelize');
 const { models, sequelize } = require('../db');
 
 const { Op } = Sequelize;
