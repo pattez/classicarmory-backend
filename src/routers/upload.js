@@ -4,8 +4,11 @@ const router = express.Router();
 const { formatLua, formatGear } = require('helpers/upload');
 const rateLimit = require('express-rate-limit');
 const atob = require('atob');
+const { getDay } = require('helpers/date');
+const Sequelize = require('Sequelize');
 const { models, sequelize } = require('../db');
 
+const { Op } = Sequelize;
 const uploadLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 10, // limit each IP to 100 requests per windowMs
@@ -63,6 +66,24 @@ router.post('/upload', validate, uploadLimiter, async (req, res) => {
     }
     if (!player[1]) {
       if (+new Date(p.lastSeen) >= +new Date(player[0].dataValues.lastSeen)) {
+        const date = getDay(new Date());
+        const honorHistory = await models.honorHistory.findOne({
+          where: {
+            playerId: player[0].dataValues.id,
+            fromDate: {
+              [Op.between]: [date - 7, date],
+            },
+          },
+        });
+
+        if (honorHistory) {
+          await honorHistory.update({
+            standing: p.lastweekStanding,
+          });
+        }
+
+        console.log(honorHistory);
+
         await player[0].update({
           ...p,
         });
