@@ -82,8 +82,6 @@ router.post('/upload', validate, uploadLimiter, async (req, res) => {
           });
         }
 
-        console.log(honorHistory);
-
         await player[0].update({
           ...p,
         });
