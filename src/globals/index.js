@@ -214,7 +214,6 @@ const HONOR_VALUES = {
   41: 'yesterdayHK',
   42: 'yesterdayHonor',
   43: 'lifetimeHK',
-  44: 'lifetimeRank',
   45: 'honorProgress',
   46: 'rankNumber',
   47: 'thisweekHK',
