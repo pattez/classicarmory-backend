@@ -4,6 +4,7 @@ const router = express.Router();
 const { formatLua, formatGear } = require('helpers/upload');
 const { authentication } = require('lib/authentication');
 const rateLimit = require('express-rate-limit');
+const atob = require('atob');
 const { models, sequelize } = require('../db');
 
 const uploadLimiter = rateLimit({
@@ -16,10 +17,6 @@ const validate = async (req, res, next) => {
   const { lua } = req.body;
   if (!lua) {
     return res.send('Bad data');
-  } if (lua && lua.length > 500) {
-    return res.send('Data too big');
-  } if (!Array.isArray(lua)) {
-    return res.send('Invalid data');
   } if (lua && lua.length === 0) {
     return res.send('No data');
   }
@@ -31,7 +28,10 @@ router.post('/upload', validate, uploadLimiter, async (req, res) => {
   req.setTimeout(900000);
   res.send('Done');
   const { lua } = req.body;
-  let data = await formatLua(lua);
+
+  const parsed = atob(lua);
+  const arr = parsed.split('z27e8');
+  let data = await formatLua(arr);
   console.log('Data length:', data.length);
   for (const item of data) {
     const p = item.player;
