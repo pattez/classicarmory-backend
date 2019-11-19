@@ -125,6 +125,9 @@ const setup = (sequelize) => {
       type: Sequelize.SMALLINT,
       defaultValue: 0,
     },
+    uploaderId: {
+      type: Sequelize.INTEGER,
+    },
   }, {
     hooks: {
     },

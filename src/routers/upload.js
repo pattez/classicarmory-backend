@@ -25,7 +25,33 @@ const validate = async (req, res, next) => {
   return next();
 };
 
-router.post('/upload', validate, uploadLimiter, async (req, res) => {
+const processIP = async (req, res, next) => {
+  const ip = req.connection.remoteAddress;
+  const uploader = await models.uploader.findOrCreate({
+    where: {
+      ip,
+    },
+    defaults: {
+      ip,
+      uploads: 0,
+      date: new Date(),
+    },
+  });
+
+  if (!uploader[1]) {
+    const uploads = uploader[0].uploads + 1;
+    await uploader[0].update({
+      uploads,
+      date: new Date(),
+    });
+  }
+  const uploaderId = uploader[0].id;
+  req.uploaderId = uploaderId;
+  return next();
+};
+
+router.post('/upload', validate, processIP, uploadLimiter, async (req, res) => {
+  console.log(req.uploaderId);
   console.log(req.headers['content-length']);
   console.log(req.connection.remoteAddress);
   req.setTimeout(900000);
@@ -45,6 +71,7 @@ router.post('/upload', validate, uploadLimiter, async (req, res) => {
       },
       defaults: {
         ...p,
+        uploaderId: req.uploaderId,
       },
     });
     item.player.id = player[0].id;
@@ -84,6 +111,7 @@ router.post('/upload', validate, uploadLimiter, async (req, res) => {
 
         await player[0].update({
           ...p,
+          uploaderId: req.uploaderId,
         });
       } else {
         delete item.gear;
