@@ -5,7 +5,11 @@ module.exports = {
     await queryInterface.removeColumn('uploaders', 'password');
     await queryInterface.removeColumn('uploaders', 'name');
     await queryInterface.removeColumn('uploaders', 'id');
-    await queryInterface.addColumn('uploaders', 'id', { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true });
+    await queryInterface.addColumn('uploaders', 'id', {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    });
     await queryInterface.addColumn('uploaders', 'ip', { type: Sequelize.STRING });
     await queryInterface.addColumn('uploaders', 'date', { type: Sequelize.DATE });
   },
