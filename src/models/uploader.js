@@ -6,17 +6,8 @@ class uploader extends Model {}
 
 const setup = (sequelize) => {
   uploader.init({
-    id: {
-      type: Sequelize.SMALLINT,
-      primaryKey: true,
-    },
-    name: {
+    ip: {
       type: Sequelize.STRING,
-      allowNull: false,
-    },
-    password: {
-      type: Sequelize.STRING,
-      allowNull: false,
     },
     uploads: {
       type: Sequelize.INTEGER,
