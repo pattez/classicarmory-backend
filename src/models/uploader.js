@@ -12,6 +12,9 @@ const setup = (sequelize) => {
     uploads: {
       type: Sequelize.INTEGER,
     },
+    date: {
+      type: Sequelize.DATE,
+    },
   }, { sequelize });
 };
 
