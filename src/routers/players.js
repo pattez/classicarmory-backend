@@ -2,8 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const sequelize = require('sequelize');
-const { getModelNames } = require('helpers/parse');
-const { SLOTS } = require('globals');
+const { SLOTS, SERVERS } = require('globals');
 const { getSlot } = require('helpers/functions');
 const { models } = require('../db');
 
@@ -25,13 +24,10 @@ router.post('/players', async (req, res) => {
     limit: 50,
     offset: offset || 0,
   });
-  const result = await players.map(async (player) => {
-    const p = Object.keys(player.dataValues).map(
-      (i) => i.includes('Id') && { model: i.split('Id')[0], id: player.dataValues[i] },
-    ).filter((j) => j.id);
-    const values = await getModelNames(p);
-    return { ...player.dataValues, ...values };
-  });
+  const result = await players.map((i) => ({
+    ...i.dataValues,
+    server: SERVERS[i.dataValues.serverId].name,
+  }));
   res.send(result);
 });
 
@@ -47,12 +43,6 @@ router.get('/players/:id', async (req, res) => {
       playerId: player.id,
     },
   });
-
-
-  const p = Object.keys(player.dataValues).map(
-    (i) => i.includes('Id') && { model: i.split('Id')[0], id: player.dataValues[i] },
-  ).filter((j) => j.id);
-  const values = await getModelNames(p);
 
   const gear = {};
 
@@ -73,8 +63,7 @@ router.get('/players/:id', async (req, res) => {
       gear[g][0].current = true;
     }
   }
-
-  res.send({ player: { ...player.dataValues, ...values }, gear });
+  res.send({ player: { ...player.dataValues }, gear });
 });
 
 module.exports = { router };
