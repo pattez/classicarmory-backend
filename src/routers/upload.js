@@ -39,6 +39,9 @@ const processIP = async (req, res, next) => {
   });
 
   if (!uploader[1]) {
+    if (uploader[0].banned) {
+      return res.send('Not allowed.');
+    }
     const uploads = uploader[0].uploads + 1;
     await uploader[0].update({
       uploads,

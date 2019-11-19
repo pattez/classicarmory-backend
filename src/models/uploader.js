@@ -20,6 +20,10 @@ const setup = (sequelize) => {
     date: {
       type: Sequelize.DATE,
     },
+    banned: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
   }, { sequelize });
 };
 
