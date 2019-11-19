@@ -14,6 +14,10 @@ const authorization = (req, res, next) => {
   return res.send('Unauthorized');
 };
 
+router.post('/test', authorization, async (req, res) => {
+  res.send('WEEEE');
+});
+
 
 router.post('/aggregateHonor', authorization, async (req, res) => {
   res.send('Started');
