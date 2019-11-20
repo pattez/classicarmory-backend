@@ -19,7 +19,7 @@ router.post('/honor', async (req, res) => {
     where: {
       serverId,
       raceId: races,
-      [`${orderBy}`]: { [Op.not]: null },
+      [`${orderBy}`]: { [Op.gt]: 0 },
     },
     order: [[orderBy, order]],
     offset: offset || 0,
