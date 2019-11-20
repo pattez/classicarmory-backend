@@ -223,7 +223,7 @@ const HONOR_VALUES = {
   49: 'lastweekHonor',
   50: 'lastweekStanding',
   51: 'lifetimeDK',
-  52: 'lifetimeHighestRank',
+  52: 'lifetimeRank',
 };
 
 
