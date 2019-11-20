@@ -32,7 +32,7 @@ router.post('/aggregateHonor', authorization, async (req, res) => {
   const toDate = getDay(today);
   const fromDate = toDate - 7;
 
-  let data = await players.map((player) => `(${player.dataValues.id}, ${fromDate}, ${toDate}, '${player.dataValues.guild}', '${player.dataValues.guildRank}', ${player.dataValues.level}, ${player.dataValues.thisweekHonor}, ${player.dataValues.thisweekHK}, ${player.dataValues.rankNumber}, ${player.dataValues.honorProgress}, 0)`);
+  let data = await players.map((player) => `(${player.dataValues.id}, ${fromDate}, ${toDate}, '${player.dataValues.guild}', '${player.dataValues.guildRank}', ${player.dataValues.level}, ${player.dataValues.thisweekHonor}, ${player.dataValues.thisweekHK}, ${player.dataValues.rankNumber}, ${parseFloat(player.dataValues.honorProgress)}, 0)`);
 
   data = data.join(',');
   const query = `INSERT INTO "honorHistory" ("playerId", "fromDate", "toDate", guild, "guildRank", level, honor, hk, rank, "honorProgress", standing) VALUES ${data}`;
