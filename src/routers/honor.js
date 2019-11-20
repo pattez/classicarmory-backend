@@ -11,6 +11,9 @@ router.post('/honor', async (req, res) => {
   const {
     serverId, offset, faction, orderBy,
   } = req.body;
+
+  const order = orderBy === 'lastweekStanding' ? 'ASC' : 'DESC';
+
   const races = faction === 1 ? [1, 3, 4, 7] : [2, 5, 6, 8];
   const players = models.player.findAll({
     where: {
@@ -18,7 +21,7 @@ router.post('/honor', async (req, res) => {
       raceId: races,
       [`${orderBy}`]: { [Op.not]: null },
     },
-    order: [[orderBy, 'DESC']],
+    order: [[orderBy, order]],
     offset: offset || 0,
     limit: 50,
   });
