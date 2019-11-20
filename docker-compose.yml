@@ -1,7 +1,7 @@
 version: '2.4'
 services:
   db:
-    image: postgres:9.6.5
+    image: postgres:11.5
     env_file:
       - ./db.env
     ports:
