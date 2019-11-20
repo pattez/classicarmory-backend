@@ -1,13 +1,21 @@
 const {
-  PLAYER_VALUES, GEAR_VALUES, ENCHANT_VALUES, HONOR_VALUES,
+  PLAYER_VALUES, GEAR_VALUES, ENCHANT_VALUES, HONOR_VALUES, VALID_ROW_LENGTH,
 } = require('globals');
 const {
   models: { server },
 } = require('../db');
 
+const validate = (row) => {
+  if (row.length !== VALID_ROW_LENGTH) {
+    throw new Error('Invalid row length');
+  }
+  return row;
+};
+
 const formatLua = async (lua) => {
   let data = lua.map((item) => {
     const i = item.split(',');
+    validate(i);
     const obj = {};
     for (const j in i) {
       if (i[j]) {
@@ -45,11 +53,12 @@ const formatLua = async (lua) => {
   data = data.map((item) => {
     const s = servers.find((i) => i.name === item.player.serverId);
     const serverId = (s && s.id) || null;
-    return {
+    const row = {
       player: { ...item.player, serverId },
       gear: { ...item.gear },
       enchant: { ...item.enchant },
     };
+    return row;
   });
   return data;
 };

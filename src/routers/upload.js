@@ -6,6 +6,7 @@ const rateLimit = require('express-rate-limit');
 const atob = require('atob');
 const { getDay } = require('helpers/date');
 const Sequelize = require('sequelize');
+const { CURRENT_ADDON_VERSION } = require('globals');
 const { models, sequelize } = require('../db');
 
 const { Op } = Sequelize;
@@ -15,12 +16,17 @@ const uploadLimiter = rateLimit({
   message: 'Too many uploads from this IP. Try again in 15minutes',
 });
 
+const ADDON_TEXT_RES = `Incorrect addon version detected, you tried to upload data from an earlier addon version, current valid version is ${CURRENT_ADDON_VERSION}, please download the latest from: https://github.com/pattez/pattez_armory - If you keep getting this error - Contact pattez on discord`;
+
 const validate = async (req, res, next) => {
   const { lua } = req.body;
+  const version = atob(lua).includes(`version${CURRENT_ADDON_VERSION},`);
   if (!lua) {
     return res.send('Bad data');
   } if (lua && lua.length === 0) {
     return res.send('No data');
+  } if (lua && !version) {
+    return res.send(ADDON_TEXT_RES);
   }
   return next();
 };
@@ -54,16 +60,19 @@ const processIP = async (req, res, next) => {
 };
 
 router.post('/upload', validate, processIP, uploadLimiter, async (req, res) => {
-  console.log(req.uploaderId);
-  console.log(req.headers['content-length']);
-  console.log(req.connection.remoteAddress);
   req.setTimeout(900000);
-  res.send('Done');
   const { lua } = req.body;
 
-  const parsed = atob(lua);
-  const arr = parsed.split('z27e8');
-  let data = await formatLua(arr);
+  let parsed = atob(lua);
+  parsed = parsed.split(`version${CURRENT_ADDON_VERSION},`);
+  const arr = parsed[1].split('z27e8');
+  let data = null;
+  try {
+    data = await formatLua(arr);
+  } catch (e) {
+    return res.send(`Invalid data: ${ADDON_TEXT_RES}`);
+  }
+  res.send('Done');
   console.log('Data length:', data.length);
   for (const item of data) {
     const p = item.player;

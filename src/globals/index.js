@@ -1,5 +1,6 @@
 const FRONTEND_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://classicarmory.org';
 
+const CURRENT_ADDON_VERSION = 1.2;
 
 const gender = {
   1: 'Neutrum / Unknown',
@@ -225,6 +226,10 @@ const HONOR_VALUES = {
   52: 'lifetimeHighestRank',
 };
 
+
+const VALID_ROW_LENGTH = Object.keys(GEAR_VALUES).length + Object.keys(HONOR_VALUES).length
++ Object.keys(ENCHANT_VALUES).length + Object.keys(PLAYER_VALUES).length;
+
 module.exports = {
   gender,
   INVENTORY_IDS,
@@ -238,4 +243,6 @@ module.exports = {
   FRONTEND_URL,
   CLASSES,
   SERVERS,
+  VALID_ROW_LENGTH,
+  CURRENT_ADDON_VERSION,
 };
