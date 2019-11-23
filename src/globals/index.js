@@ -30,6 +30,9 @@ const INVENTORY_IDS = {
   19: 'tabard',
 };
 
+const HORDE = [2, 5, 6, 8];
+const ALLIANCE = [1, 3, 4, 7];
+
 const CLASSES = {
   1: 'Warrior',
   2: 'Paladin',
@@ -245,4 +248,6 @@ module.exports = {
   SERVERS,
   VALID_ROW_LENGTH,
   CURRENT_ADDON_VERSION,
+  HORDE,
+  ALLIANCE,
 };
