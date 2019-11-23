@@ -18,6 +18,9 @@ const setup = (sequelize) => {
     type: {
       type: Sequelize.STRING,
     },
+    region: {
+      type: Sequelize.STRING,
+    },
   }, { sequelize });
 };
 
