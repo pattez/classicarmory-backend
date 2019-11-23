@@ -109,7 +109,7 @@ router.post('/upload', validate, processIP, uploadLimiter, async (req, res) => {
         const honorHistory = await models.honorHistory.findOne({
           where: {
             playerId: player[0].dataValues.id,
-            fromDate: {
+            toDate: {
               [Op.between]: [date - 7, date],
             },
           },
