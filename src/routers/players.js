@@ -59,31 +59,6 @@ router.get('/players/:id', async (req, res) => {
     }
   }
 
-  for (const i of gear.slot_11) {
-    const index = gear.slot_12.findIndex((j) => j.itemId === i.itemId);
-
-    if (index > -1) {
-      gear.slot_12.splice(index, 1);
-    }
-  }
-
-  for (const i of gear.slot_13) {
-    const index = gear.slot_14.findIndex((j) => j.itemId === i.itemId);
-
-    if (index > -1) {
-      gear.slot_14.splice(index, 1);
-    }
-  }
-
-  for (const i of gear.slot_16) {
-    const index = gear.slot_17.findIndex((j) => j.itemId === i.itemId);
-
-    if (index > -1) {
-      gear.slot_17.splice(index, 1);
-    }
-  }
-
-
   for (const g of Object.keys(gear)) {
     if (gear[g].length > 1) {
       gear[g] = gear[g].sort((a, b) => (b.current ? 1 : -1));
@@ -91,6 +66,42 @@ router.get('/players/:id', async (req, res) => {
       gear[g][0].current = true;
     }
   }
+
+  const currentGear = Object.keys(gear).map((i) => gear[i]).flat(Infinity).filter((j) => j.current);
+
+  for (const g of Object.keys(gear)) {
+    for (const item of currentGear) {
+      const index = gear[g].findIndex((i) => i.itemId === item.itemId && !i.current);
+      if (index > -1) {
+        gear[g].splice(index, 1);
+      }
+    }
+  }
+
+  for (const i of gear.slot_11) {
+    const item = gear.slot_12.find((j) => j.itemId === i.itemId);
+    if (item) {
+      const index = gear.slot_12.findIndex((j) => j.itemId === i.itemId);
+      gear.slot_12.splice(index, 1);
+    }
+  }
+
+  for (const i of gear.slot_13) {
+    const item = gear.slot_14.find((j) => j.itemId === i.itemId);
+    if (item) {
+      const index = gear.slot_14.findIndex((j) => j.itemId === i.itemId);
+      gear.slot_14.splice(index, 1);
+    }
+  }
+
+  for (const i of gear.slot_16) {
+    const item = gear.slot_17.find((j) => j.itemId === i.itemId);
+    if (item) {
+      const index = gear.slot_17.findIndex((j) => j.itemId === i.itemId);
+      gear.slot_17.splice(index, 1);
+    }
+  }
+
   res.send({ player: { ...player.dataValues }, gear });
 });
 
