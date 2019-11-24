@@ -49,12 +49,40 @@ router.get('/players/:id', async (req, res) => {
   for (const pcg of Object.keys(playerCurrentGear.dataValues)) {
     const slotId = getSlot(pcg);
     gear[pcg] = gear[pcg] || [];
-    const pg = playerGear.filter((i) => i.slotId.toString() === slotId).map((j) => {
-      const current = playerCurrentGear.dataValues[pcg] === j.dataValues.itemId;
-      return { ...j.dataValues, current };
-    });
-    gear[pcg] = [...gear[pcg], ...pg];
+    let pg = {};
+    if (playerCurrentGear.dataValues[pcg]) {
+      pg = playerGear.filter((i) => i.slotId.toString() === slotId).map((j) => {
+        const current = playerCurrentGear.dataValues[pcg] === j.dataValues.itemId;
+        return { ...j.dataValues, current };
+      });
+      gear[pcg] = [...gear[pcg], ...pg];
+    }
   }
+
+  for (const i of gear.slot_11) {
+    const index = gear.slot_12.findIndex((j) => j.itemId === i.itemId);
+
+    if (index > -1) {
+      gear.slot_12.splice(index, 1);
+    }
+  }
+
+  for (const i of gear.slot_13) {
+    const index = gear.slot_14.findIndex((j) => j.itemId === i.itemId);
+
+    if (index > -1) {
+      gear.slot_14.splice(index, 1);
+    }
+  }
+
+  for (const i of gear.slot_16) {
+    const index = gear.slot_17.findIndex((j) => j.itemId === i.itemId);
+
+    if (index > -1) {
+      gear.slot_17.splice(index, 1);
+    }
+  }
+
 
   for (const g of Object.keys(gear)) {
     if (gear[g].length > 1) {
