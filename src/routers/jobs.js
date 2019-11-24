@@ -21,8 +21,14 @@ const authorization = (req, res, next) => {
   return res.send('Unauthorized');
 };
 
+router.post('/jobs/test/:key', async (req, res) => {
+  console.log('Starting test');
+  console.log('params key', req.params.key);
+  res.send('Done');
+});
 
-router.post('/aggregateHonor/:region', authorization, async (req, res) => {
+
+router.post('/jobs/aggregateHonor/:region', authorization, async (req, res) => {
   res.send('Started');
   console.log(new Date(), '- Starting weekly honor aggregating...');
   const { region } = req.params;
