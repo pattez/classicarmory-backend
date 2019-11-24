@@ -7,15 +7,15 @@ const {
 
 const validate = (row) => {
   if (row.length !== VALID_ROW_LENGTH) {
-    throw new Error('Invalid row length');
+    return null;
   }
   return row;
 };
 
 const formatLua = async (lua) => {
   let data = lua.map((item) => {
-    const i = item.split(',');
-    validate(i);
+    let i = item.split(',');
+    i = validate(i);
     const obj = {};
     for (const j in i) {
       if (i[j]) {
@@ -48,7 +48,7 @@ const formatLua = async (lua) => {
       }
     }
     return obj;
-  });
+  }).filter((i) => Object.keys(i).length > 0);
   const servers = await server.findAll();
   data = data.map((item) => {
     const s = servers.find((i) => i.name === item.player.serverId);
