@@ -80,6 +80,7 @@ router.post('/upload', validate, processIP, uploadLimiter, async (req, res) => {
     const player = await models.player.findOrCreate({
       where: {
         name: p.name,
+        serverId: p.serverId,
       },
       defaults: {
         ...p,
