@@ -48,7 +48,7 @@ router.post('/jobs/aggregateHonor/:region', authorization, async (req, res) => {
     const fromDate = toDate - 7;
 
     const lastWeekQuery = `UPDATE "honorHistory" SET honor = players."lastweekHonor", hk = players."lastweekHK" FROM players WHERE "honorHistory"."playerId" = players.id
-    and "honorHistory"."toDate" = ${fromDate} and "honorHistory"."fromDate" = ${fromDate - 7} and players."serverId" in (${serverIds.join(',')}) ON CONFLICT DO NOTHING`;
+    and "honorHistory"."toDate" = ${fromDate} and "honorHistory"."fromDate" = ${fromDate - 7} and players."serverId" in (${serverIds.join(',')})`;
 
     await sequelize.query(lastWeekQuery);
 
