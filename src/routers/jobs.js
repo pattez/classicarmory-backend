@@ -65,7 +65,7 @@ router.post('/jobs/aggregateHonor/:region', authorization, async (req, res) => {
     console.log(new Date(), '- Running insert query...');
     await sequelize.query(query);
     console.log(new Date(), '- Running update query...');
-    await sequelize.query(`UPDATE players SET "thisweekHonor" = 0, "thisweekHK" = 0, "lastweekHK" = 0, "lastweekHonor" = 0 WHERE "serverId" in (${serverIds.join(',')})`);
+    await sequelize.query(`UPDATE players SET "thisweekHonor" = 0, "thisweekHK" = 0, "lastweekHK" = 0, "lastweekHonor" = 0, "lastweekStanding" = 0 WHERE "serverId" in (${serverIds.join(',')})`);
     console.log(new Date(), '- Honor aggregation done!');
   } else {
     console.log(new Date(), '- Honor aggregation done! - No players to aggregate.');
