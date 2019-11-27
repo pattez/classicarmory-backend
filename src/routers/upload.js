@@ -74,9 +74,27 @@ router.post('/upload', validate, processIP, uploadLimiter, async (req, res) => {
   }
   res.send('Done');
   console.log('Data length:', data.length);
+  const honorKeys = [
+    'todayHK', 'yesterdayHK', 'yesterdayHonor', 'lifetimeHK', 'lifetimeRank', 'honorProgress', 'rankNumber', 'thisweekHK', 'thisweekHonor', 'lastweekHK', 'lastweekHonor', 'lastweekStanding', 'lifetimeDK',
+  ];
   for (const item of data) {
     const p = item.player;
     const g = item.gear;
+
+    const maxToDate = await sequelize.query(`SELECT MAX("toDate") FROM "honorHistory"
+    INNER JOIN players on players.id = "honorHistory"."playerId"
+    where players."serverId" = ${p.serverId}`);
+    const lastSeenToDay = getDay(new Date(p.lastSeen));
+
+    const canUpdateHonor = maxToDate && maxToDate[0]
+     && maxToDate[0][0] && maxToDate[0][0].max > lastSeenToDay;
+
+    if (canUpdateHonor) {
+      for (const key of honorKeys) {
+        delete p[key];
+      }
+    }
+
     const player = await models.player.findOrCreate({
       where: {
         name: p.name,
@@ -116,7 +134,7 @@ router.post('/upload', validate, processIP, uploadLimiter, async (req, res) => {
           },
         });
 
-        if (honorHistory) {
+        if (honorHistory && canUpdateHonor) {
           await honorHistory.update({
             standing: p.lastweekStanding,
           });
