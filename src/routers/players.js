@@ -26,6 +26,8 @@ router.post('/players', async (req, res) => {
   });
   const result = await players.map((i) => ({
     ...i.dataValues,
+    guild: i.guild || '',
+    guildRank: i.guildRank || '',
     server: SERVERS[i.dataValues.serverId].name,
   }));
   res.send(result);
@@ -100,6 +102,14 @@ router.get('/players/:id', async (req, res) => {
       const index = gear.slot_17.findIndex((j) => j.itemId === i.itemId);
       gear.slot_17.splice(index, 1);
     }
+  }
+
+  if (!player.dataValues.guild) {
+    player.dataValues.guild = '';
+  }
+
+  if (!player.dataValues.guildRank) {
+    player.dataValues.guildRank = '';
   }
 
   res.send({ player: { ...player.dataValues }, gear });

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const express = require('express');
 const { RACES } = require('globals');
 
@@ -27,6 +28,16 @@ router.post('/honor', async (req, res) => {
   });
   const result = await players.map(async (player) => {
     const f = RACES[player.dataValues.raceId].faction;
+
+    if (!player.dataValues.guild) {
+      player.dataValues.guild = '';
+    }
+
+    if (!player.dataValues.guildRank) {
+      player.dataValues.guildRank = '';
+    }
+
+
     return { ...player.dataValues, faction: f === 'Alliance' ? 1 : 2 };
   });
   res.send(result);
