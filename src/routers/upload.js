@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 const express = require('express');
 
 const router = express.Router();
@@ -80,6 +81,10 @@ router.post('/upload', validate, processIP, uploadLimiter, async (req, res) => {
   for (const item of data) {
     const p = item.player;
     const g = item.gear;
+
+    if (p.name && p.name.includes('-')) {
+      p.name = p.name.split('-')[0];
+    }
 
     const maxToDate = await sequelize.query(`SELECT MAX("toDate") FROM "honorHistory"
     INNER JOIN players on players.id = "honorHistory"."playerId"
