@@ -20,17 +20,16 @@ const uploadLimiter = rateLimit({
 const ADDON_TEXT_RES = `Incorrect addon version detected, you tried to upload data from an earlier addon version, current valid version is ${CURRENT_ADDON_VERSION}, please download the latest from: https://github.com/pattez/pattez_armory - If you keep getting this error - Contact pattez on discord`;
 
 const validate = async (req, res, next) => {
-  return res.send('Upload is temporarily disabled, and will be up and running again once cross BG issue has been resolved');
-  // const { lua } = req.body;
-  // const version = atob(lua).includes(`version${CURRENT_ADDON_VERSION},`);
-  // if (!lua) {
-  //   return res.send('Bad data');
-  // } if (lua && lua.length === 0) {
-  //   return res.send('No data');
-  // } if (lua && !version) {
-  //   return res.send(ADDON_TEXT_RES);
-  // }
-  // return next();
+  const { lua } = req.body;
+  const version = atob(lua).includes(`version${CURRENT_ADDON_VERSION},`);
+  if (!lua) {
+    return res.send('Bad data');
+  } if (lua && lua.length === 0) {
+    return res.send('No data');
+  } if (lua && !version) {
+    return res.send(ADDON_TEXT_RES);
+  }
+  return next();
 };
 
 const processIP = async (req, res, next) => {
@@ -82,10 +81,6 @@ router.post('/upload', validate, processIP, uploadLimiter, async (req, res) => {
   for (const item of data) {
     const p = item.player;
     const g = item.gear;
-
-    if (p.name && p.name.includes('-')) {
-      p.name = p.name.split('-')[0];
-    }
 
     const maxToDate = await sequelize.query(`SELECT MAX("toDate") FROM "honorHistory"
     INNER JOIN players on players.id = "honorHistory"."playerId"

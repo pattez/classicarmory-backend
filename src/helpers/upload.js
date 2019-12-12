@@ -12,6 +12,8 @@ const validate = (row) => {
   return row;
 };
 
+const replaceSpace = (string) => string.replace(new RegExp(' ', 'g'), '');
+
 const formatLua = async (lua) => {
   let data = lua.map((item) => {
     let i = item.split(',');
@@ -51,7 +53,7 @@ const formatLua = async (lua) => {
   }).filter((i) => Object.keys(i).length > 0);
   const servers = await server.findAll();
   data = data.map((item) => {
-    const s = servers.find((i) => i.name === item.player.serverId);
+    const s = servers.find((i) => replaceSpace(i.name) === item.player.serverId);
     const serverId = (s && s.id) || null;
     const row = {
       player: { ...item.player, serverId },

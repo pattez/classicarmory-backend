@@ -1,6 +1,6 @@
 const FRONTEND_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://classicarmory.org';
 
-const CURRENT_ADDON_VERSION = 1.2;
+const CURRENT_ADDON_VERSION = 1.3;
 
 const gender = {
   1: 'Neutrum / Unknown',
