@@ -8,6 +8,7 @@ const atob = require('atob');
 const { getDay } = require('helpers/date');
 const Sequelize = require('sequelize');
 const { CURRENT_ADDON_VERSION } = require('globals');
+const querystring = require('querystring');
 const { models, sequelize } = require('../db');
 
 const { Op } = Sequelize;
@@ -21,7 +22,9 @@ const ADDON_TEXT_RES = `Incorrect addon version detected, you tried to upload da
 
 const validate = async (req, res, next) => {
   const { lua } = req.body;
-  const version = atob(lua).includes(`version${CURRENT_ADDON_VERSION},`);
+  let parsed = atob(lua);
+  parsed = querystring.unescape(parsed);
+  const version = parsed.includes(`version${CURRENT_ADDON_VERSION},`);
   if (!lua) {
     return res.send('Bad data');
   } if (lua && lua.length === 0) {
@@ -65,8 +68,10 @@ router.post('/upload', validate, processIP, uploadLimiter, async (req, res) => {
   const { lua } = req.body;
 
   let parsed = atob(lua);
+  parsed = querystring.unescape(parsed);
   parsed = parsed.split(`version${CURRENT_ADDON_VERSION},`);
   const arr = parsed[1].split('z27e8');
+  console.log(arr);
   let data = null;
   try {
     data = await formatLua(arr);
